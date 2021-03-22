@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-03-22T14:40:05Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template MgS Inventory</template>
+            <name>Template MgS Inventory</name>
+            <description>Pomocnik w ewidencjonowaniu</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>MgS DPKIdentifier</name>
+                </application>
+                <application>
+                    <name>MgS Inventory</name>
+                </application>
+                <application>
+                    <name>MgS SerialNumbers</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>CPU Architecture</name>
+                    <key>mgs.inventory[cpu,arch]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>CPU architecture</description>
+                    <inventory_link>HW_ARCH</inventory_link>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>CPU Logical Cores Count</name>
+                    <key>mgs.inventory[cpu,cores]</key>
+                    <delay>2h</delay>
+                    <description>Cores count</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>CPU Logical Processors with Cores Count</name>
+                    <key>mgs.inventory[cpu,count]</key>
+                    <delay>2h</delay>
+                    <description>Logical Procesors with cores count</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>CPU count was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>The number of physical CPUs or cores was changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU Logical Processors Count</name>
+                    <key>mgs.inventory[cpu,cpus]</key>
+                    <delay>2h</delay>
+                    <description>CPU count</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>CPU Current Frequency</name>
+                    <key>mgs.inventory[cpu,curfreq]</key>
+                    <delay>1h</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>Hz</units>
+                    <description>Current CPU frequency</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>1000000</params>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>CPU Maximum Frequency</name>
+                    <key>mgs.inventory[cpu,freq]</key>
+                    <delay>2h</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>Hz</units>
+                    <description>Maximum CPU frequency</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>1000000</params>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>CPU Model</name>
+                    <key>mgs.inventory[cpu,model,0]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>CPU Model</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>CPU Model was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>The CPU Model was changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU Threads Count</name>
+                    <key>mgs.inventory[cpu,threads]</key>
+                    <delay>2h</delay>
+                    <description>Threads count</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>GetBiosId</name>
+                    <key>mgs.inventory[identifier,GetBiosId]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Bios Id</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>BiosID has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>BiosID has been changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>GetComputerSystemProductUUID</name>
+                    <key>mgs.inventory[identifier,GetComputerSystemProductUUID]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>ComputerSystemProductUUID</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>ComputerSystemProductUUID has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>ComputerSystemProductUUID has been changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>GetHddIds</name>
+                    <key>mgs.inventory[identifier,GetHddIds]</key>
+                    <delay>30m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>HDD Ids</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>GetMACAddresses</name>
+                    <key>mgs.inventory[identifier,GetMACAddresses]</key>
+                    <delay>1h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>MAC addresses</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>MAC Addresses has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>MAC Addresses has been changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>GetProcessorIds</name>
+                    <key>mgs.inventory[identifier,GetProcessorIds]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Processors Ids</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Processors IDs has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>Processors Ids has been changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>GetWindowsDriveVolumeId</name>
+                    <key>mgs.inventory[identifier,GetWindowsDriveVolumeId]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Windows System Drive Volume Id</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Windows Drive Volume Id has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>Windows Drive Volume Id has been changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>GetWindowsInstallDate</name>
+                    <key>mgs.inventory[identifier,GetWindowsInstallDate]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Windows Installation Date</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Windows Install date has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>Windows Install date has been changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>GetWindowsSerialNumber</name>
+                    <key>mgs.inventory[identifier,GetWindowsSerialNumber]</key>
+                    <delay>10m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Windows Serial Number</description>
+                    <applications>
+                        <application>
+                            <name>MgS DPKIdentifier</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Windows Serial Number has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>Windows Serial Number has been changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Memory capacity</name>
+                    <key>mgs.inventory[memory,capacity]</key>
+                    <delay>8h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Installed physical memory capacity</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memory manufacturer</name>
+                    <key>mgs.inventory[memory,manufacturer]</key>
+                    <delay>8h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Manufacturer of installed physical memory.</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memory partnumber</name>
+                    <key>mgs.inventory[memory,partnumber]</key>
+                    <delay>8h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Part number of installed physical memory.</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total physical memory</name>
+                    <key>mgs.inventory[memory,total]</key>
+                    <delay>1h</delay>
+                    <units>B</units>
+                    <description>Total amount of installed memory in bytes.</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Network External IPv4 Address</name>
+                    <key>mgs.inventory[network,extipv4]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>TEXT</value_type>
+                    <description>IPV4 network default external address</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>External IPv4 address was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>IPV4 address was changed&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Network External IPv6 Address</name>
+                    <key>mgs.inventory[network,extipv6]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>TEXT</value_type>
+                    <description>IPV6 network default external address</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>External IPv6 address was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>IPV6 address was changed&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Default IPV4 Gateway</name>
+                    <key>mgs.inventory[network,ipv4gateway]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Default IPv4 gateway</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Network IPv4 Addresses</name>
+                    <key>mgs.inventory[network,ipv4]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>IPV4 network addresses</description>
+                    <inventory_link>HOST_NETWORKS</inventory_link>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Intenal IPv4 address was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>IPV4 address was changed&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Default IPV6 Gateway</name>
+                    <key>mgs.inventory[network,ipv6gateway]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Default IPv6 gateway</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Network IPv6 Addresses</name>
+                    <key>mgs.inventory[network,ipv6]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>IPV6 network addresses</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Internal IPv6 address was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>IPV6 address was changed&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Network cards</name>
+                    <key>mgs.inventory[network,nic]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Network cards</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Operating system</name>
+                    <key>mgs.inventory[os,desc]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Operating system description</description>
+                    <inventory_link>OS_SHORT</inventory_link>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Operating system was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>Operating system was changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Operating system GUID</name>
+                    <key>mgs.inventory[os,guid]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Operating system guid</description>
+                    <inventory_link>SERIALNO_B</inventory_link>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Machine GUID</name>
+                    <key>mgs.inventory[os,machineguid]</key>
+                    <delay>10m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Machine Guid (From HKLM:\SOFTWARE\Microsoft\Cryptography registry hive)</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Operating system ProductKey</name>
+                    <key>mgs.inventory[os,productkey]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Operating system ProductKey</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Windows product key was changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <description>Windows product key was changed.&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Operating system serial</name>
+                    <key>mgs.inventory[os,serial]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Operating system serial number</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Operating system version</name>
+                    <key>mgs.inventory[os,version]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Operating system version</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>MgS Inventory script updatecheck</name>
+                    <key>mgs.inventory[self,checkforupdates]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Check if update is available.</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>MgS Inventory script autoupdate</name>
+                    <key>mgs.inventory[self,update]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>TEXT</value_type>
+                    <description>Automaticaly update MgS Inventory package</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>MgS Inventory script version</name>
+                    <key>mgs.inventory[self,version]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>MgS Inventory script version.</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>BIOS serial number</name>
+                    <key>mgs.inventory[serial,bios]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Serial number of bios.</description>
+                    <applications>
+                        <application>
+                            <name>MgS SerialNumbers</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Chassis serial number</name>
+                    <key>mgs.inventory[serial,chassis]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Serial number of chassis.</description>
+                    <applications>
+                        <application>
+                            <name>MgS SerialNumbers</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>CPU serial number</name>
+                    <key>mgs.inventory[serial,cpu]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Serial number of cpu.</description>
+                    <applications>
+                        <application>
+                            <name>MgS SerialNumbers</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Display serial number</name>
+                    <key>mgs.inventory[serial,display]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Serial numbers of attached displays</description>
+                    <applications>
+                        <application>
+                            <name>MgS SerialNumbers</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memory serial number</name>
+                    <key>mgs.inventory[serial,memory]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Serial number of installed memory modules.</description>
+                    <applications>
+                        <application>
+                            <name>MgS SerialNumbers</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Network interface card serial number</name>
+                    <key>mgs.inventory[serial,nic]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Serial number of NICs.</description>
+                    <applications>
+                        <application>
+                            <name>MgS SerialNumbers</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Storage serial number</name>
+                    <key>mgs.inventory[serial,storage]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Serial number of storage devices.</description>
+                    <applications>
+                        <application>
+                            <name>MgS SerialNumbers</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Installed software count</name>
+                    <key>mgs.inventory[software,installed,count]</key>
+                    <delay>2h</delay>
+                    <description>Count of installed software</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
+                            <name>Something was installed on {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                            <description>Something was installed&#13;
+{ITEM.LASTVALUE1}</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Installed extra software</name>
+                    <key>mgs.inventory[software,installed,extra]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Installed software not from Microsoft</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Installed software</name>
+                    <key>mgs.inventory[software,installed]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Installed software, without program updates and service packs.</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Physical disks</name>
+                    <key>mgs.inventory[storage,disks]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Physical disks with capacity in GB</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Physical disks Model</name>
+                    <key>mgs.inventory[storage,model]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Physical Disk model</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Disk partitions</name>
+                    <key>mgs.inventory[storage,partitions]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Partitions with capacity in GB</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>BIOS Version</name>
+                    <key>mgs.inventory[var,bios]</key>
+                    <delay>24h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>BIOS Version</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Displays</name>
+                    <key>mgs.inventory[var,display]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Connected displays</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System Domain</name>
+                    <key>mgs.inventory[var,domain]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>System domain</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>System FQDN</name>
+                    <key>mgs.inventory[var,fqdn]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>System fully qualified domain name.</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Graphics cards</name>
+                    <key>mgs.inventory[var,gfx]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Installed Graphics Cards</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System Hostname</name>
+                    <key>mgs.inventory[var,hostname]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>System hostname</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>System manufacturer</name>
+                    <key>mgs.inventory[var,vendor]</key>
+                    <delay>2h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>System manufacturer</description>
+                    <applications>
+                        <application>
+                            <name>MgS Inventory</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
