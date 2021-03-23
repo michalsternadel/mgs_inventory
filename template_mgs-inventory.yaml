@@ -1,0 +1,697 @@
+zabbix_export:
+  version: '5.2'
+  date: '2021-03-23T06:52:34Z'
+  groups:
+    -
+      name: Templates
+  templates:
+    -
+      template: 'Template mgs_inventory'
+      name: 'Template mgs_inventory'
+      description: 'Hardware and software inventory collector'
+      groups:
+        -
+          name: Templates
+      applications:
+        -
+          name: 'MgS Inventory'
+        -
+          name: 'MgS SerialNumbers'
+      items:
+        -
+          name: 'CPU Architecture'
+          key: 'mgs.inventory[cpu,arch]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'CPU architecture'
+          inventory_link: HW_ARCH
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'CPU Logical Cores Count'
+          key: 'mgs.inventory[cpu,cores]'
+          delay: 2h
+          description: 'Cores count'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'CPU Logical Processors with Cores Count'
+          key: 'mgs.inventory[cpu,count]'
+          delay: 2h
+          description: 'Logical Procesors with cores count'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'CPU count was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                The number of physical CPUs or cores was changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: 'CPU Logical Processors Count'
+          key: 'mgs.inventory[cpu,cpus]'
+          delay: 2h
+          description: 'CPU count'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'CPU Current Frequency'
+          key: 'mgs.inventory[cpu,curfreq]'
+          delay: 1h
+          value_type: FLOAT
+          units: Hz
+          description: 'Current CPU frequency'
+          applications:
+            -
+              name: 'MgS Inventory'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1000000'
+          request_method: POST
+        -
+          name: 'CPU Maximum Frequency'
+          key: 'mgs.inventory[cpu,freq]'
+          delay: 2h
+          value_type: FLOAT
+          units: Hz
+          description: 'Maximum CPU frequency'
+          applications:
+            -
+              name: 'MgS Inventory'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1000000'
+          request_method: POST
+        -
+          name: 'CPU Model'
+          key: 'mgs.inventory[cpu,model,0]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'CPU Model'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'CPU Model was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                The CPU Model was changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: 'CPU Threads Count'
+          key: 'mgs.inventory[cpu,threads]'
+          delay: 2h
+          description: 'Threads count'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: GetBiosId
+          key: 'mgs.inventory[identifier,GetBiosId]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Bios Id'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'BiosID has been changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                BiosID has been changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: GetComputerSystemProductUUID
+          key: 'mgs.inventory[identifier,GetComputerSystemProductUUID]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: ComputerSystemProductUUID
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'ComputerSystemProductUUID has been changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                ComputerSystemProductUUID has been changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: GetHddIds
+          key: 'mgs.inventory[identifier,GetHddIds]'
+          delay: 30m
+          trends: '0'
+          value_type: TEXT
+          description: 'HDD Ids'
+        -
+          name: GetMACAddresses
+          key: 'mgs.inventory[identifier,GetMACAddresses]'
+          delay: 1h
+          trends: '0'
+          value_type: TEXT
+          description: 'MAC addresses'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'MAC Addresses has been changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                MAC Addresses has been changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: GetProcessorIds
+          key: 'mgs.inventory[identifier,GetProcessorIds]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Processors Ids'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Processors IDs has been changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                Processors Ids has been changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: GetWindowsDriveVolumeId
+          key: 'mgs.inventory[identifier,GetWindowsDriveVolumeId]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Windows System Drive Volume Id'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Windows Drive Volume Id has been changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                Windows Drive Volume Id has been changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: GetWindowsInstallDate
+          key: 'mgs.inventory[identifier,GetWindowsInstallDate]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Windows Installation Date'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Windows Install date has been changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                Windows Install date has been changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: GetWindowsSerialNumber
+          key: 'mgs.inventory[identifier,GetWindowsSerialNumber]'
+          delay: 10m
+          trends: '0'
+          value_type: TEXT
+          description: 'Windows Serial Number'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Windows Serial Number has been changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                Windows Serial Number has been changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Memory capacity'
+          key: 'mgs.inventory[memory,capacity]'
+          delay: 8h
+          trends: '0'
+          value_type: TEXT
+          description: 'Installed physical memory capacity'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: 'Memory manufacturer'
+          key: 'mgs.inventory[memory,manufacturer]'
+          delay: 8h
+          trends: '0'
+          value_type: TEXT
+          description: 'Manufacturer of installed physical memory.'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: 'Memory partnumber'
+          key: 'mgs.inventory[memory,partnumber]'
+          delay: 8h
+          trends: '0'
+          value_type: TEXT
+          description: 'Part number of installed physical memory.'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: 'Total physical memory'
+          key: 'mgs.inventory[memory,total]'
+          delay: 1h
+          units: B
+          description: 'Total amount of installed memory in bytes.'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Network External IPv4 Address'
+          key: 'mgs.inventory[network,extipv4]'
+          delay: 2h
+          trends: '0'
+          status: DISABLED
+          value_type: TEXT
+          description: 'IPV4 network default external address'
+          applications:
+            -
+              name: 'MgS Inventory'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'External IPv4 address was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                IPV4 address was changed
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Network External IPv6 Address'
+          key: 'mgs.inventory[network,extipv6]'
+          delay: 2h
+          trends: '0'
+          status: DISABLED
+          value_type: TEXT
+          description: 'IPV6 network default external address'
+          applications:
+            -
+              name: 'MgS Inventory'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'External IPv6 address was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                IPV6 address was changed
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Default IPV4 Gateway'
+          key: 'mgs.inventory[network,ipv4gateway]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Default IPv4 gateway'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Network IPv4 Addresses'
+          key: 'mgs.inventory[network,ipv4]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'IPV4 network addresses'
+          inventory_link: HOST_NETWORKS
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Intenal IPv4 address was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                IPV4 address was changed
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Default IPV6 Gateway'
+          key: 'mgs.inventory[network,ipv6gateway]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Default IPv6 gateway'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Network IPv6 Addresses'
+          key: 'mgs.inventory[network,ipv6]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'IPV6 network addresses'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Internal IPv6 address was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                IPV6 address was changed
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Network cards'
+          key: 'mgs.inventory[network,nic]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Network cards'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Operating system'
+          key: 'mgs.inventory[os,desc]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Operating system description'
+          inventory_link: OS_SHORT
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Operating system was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                Operating system was changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Operating system GUID'
+          key: 'mgs.inventory[os,guid]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Operating system guid'
+          inventory_link: SERIALNO_B
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Machine GUID'
+          key: 'mgs.inventory[os,machineguid]'
+          delay: 10m
+          trends: '0'
+          value_type: TEXT
+          description: 'Machine Guid (From HKLM:\SOFTWARE\Microsoft\Cryptography registry hive)'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: 'Operating system ProductKey'
+          key: 'mgs.inventory[os,productkey]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Operating system ProductKey'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Windows product key was changed on {HOST.NAME}'
+              priority: INFO
+              description: |
+                Windows product key was changed.
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Operating system serial'
+          key: 'mgs.inventory[os,serial]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Operating system serial number'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Operating system version'
+          key: 'mgs.inventory[os,version]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Operating system version'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'MgS Inventory script version'
+          key: 'mgs.inventory[self,version]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'MgS Inventory script version.'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'BIOS serial number'
+          key: 'mgs.inventory[serial,bios]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Serial number of bios.'
+          applications:
+            -
+              name: 'MgS SerialNumbers'
+        -
+          name: 'Chassis serial number'
+          key: 'mgs.inventory[serial,chassis]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Serial number of chassis.'
+          applications:
+            -
+              name: 'MgS SerialNumbers'
+        -
+          name: 'CPU serial number'
+          key: 'mgs.inventory[serial,cpu]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Serial number of cpu.'
+          applications:
+            -
+              name: 'MgS SerialNumbers'
+        -
+          name: 'Display serial number'
+          key: 'mgs.inventory[serial,display]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Serial numbers of attached displays'
+          applications:
+            -
+              name: 'MgS SerialNumbers'
+        -
+          name: 'Memory serial number'
+          key: 'mgs.inventory[serial,memory]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Serial number of installed memory modules.'
+          applications:
+            -
+              name: 'MgS SerialNumbers'
+        -
+          name: 'Network interface card serial number'
+          key: 'mgs.inventory[serial,nic]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Serial number of NICs.'
+          applications:
+            -
+              name: 'MgS SerialNumbers'
+        -
+          name: 'Storage serial number'
+          key: 'mgs.inventory[serial,storage]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Serial number of storage devices.'
+          applications:
+            -
+              name: 'MgS SerialNumbers'
+        -
+          name: 'Installed software count'
+          key: 'mgs.inventory[software,installed,count]'
+          delay: 2h
+          description: 'Count of installed software'
+          applications:
+            -
+              name: 'MgS Inventory'
+          triggers:
+            -
+              expression: '{diff(0)}>0 and {nodata(600)}=0'
+              name: 'Something was installed on {HOST.NAME}'
+              priority: WARNING
+              description: |
+                Something was installed
+                {ITEM.LASTVALUE1}
+        -
+          name: 'Installed extra software'
+          key: 'mgs.inventory[software,installed,extra]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Installed software not from Microsoft'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: 'Installed software'
+          key: 'mgs.inventory[software,installed]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Installed software, without program updates and service packs.'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Physical disks'
+          key: 'mgs.inventory[storage,disks]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Physical disks with capacity in GB'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Physical disks Model'
+          key: 'mgs.inventory[storage,model]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Physical Disk model'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Disk partitions'
+          key: 'mgs.inventory[storage,partitions]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'Partitions with capacity in GB'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'BIOS Version'
+          key: 'mgs.inventory[var,bios]'
+          delay: 24h
+          trends: '0'
+          value_type: TEXT
+          description: 'BIOS Version'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: Displays
+          key: 'mgs.inventory[var,display]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Connected displays'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: 'System Domain'
+          key: 'mgs.inventory[var,domain]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'System domain'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'System FQDN'
+          key: 'mgs.inventory[var,fqdn]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'System fully qualified domain name.'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'Graphics cards'
+          key: 'mgs.inventory[var,gfx]'
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          description: 'Installed Graphics Cards'
+          applications:
+            -
+              name: 'MgS Inventory'
+        -
+          name: 'System Hostname'
+          key: 'mgs.inventory[var,hostname]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'System hostname'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST
+        -
+          name: 'System manufacturer'
+          key: 'mgs.inventory[var,vendor]'
+          delay: 2h
+          trends: '0'
+          value_type: TEXT
+          description: 'System manufacturer'
+          applications:
+            -
+              name: 'MgS Inventory'
+          request_method: POST

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-03-22T14:40:05Z</date>
+    <date>2021-03-23T06:56:45Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -9,18 +9,15 @@
     </groups>
     <templates>
         <template>
-            <template>Template MgS Inventory</template>
-            <name>Template MgS Inventory</name>
-            <description>Pomocnik w ewidencjonowaniu</description>
+            <template>Template mgs_inventory</template>
+            <name>Template mgs_inventory</name>
+            <description>Hardware and software inventory collector</description>
             <groups>
                 <group>
                     <name>Templates</name>
                 </group>
             </groups>
             <applications>
-                <application>
-                    <name>MgS DPKIdentifier</name>
-                </application>
                 <application>
                     <name>MgS Inventory</name>
                 </application>
@@ -171,11 +168,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>Bios Id</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                     <triggers>
                         <trigger>
                             <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
@@ -193,11 +185,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>ComputerSystemProductUUID</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                     <triggers>
                         <trigger>
                             <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
@@ -215,11 +202,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>HDD Ids</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                 </item>
                 <item>
                     <name>GetMACAddresses</name>
@@ -228,11 +210,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>MAC addresses</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                     <triggers>
                         <trigger>
                             <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
@@ -250,11 +227,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>Processors Ids</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                     <triggers>
                         <trigger>
                             <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
@@ -272,11 +244,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>Windows System Drive Volume Id</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                     <triggers>
                         <trigger>
                             <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
@@ -294,11 +261,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>Windows Installation Date</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                     <triggers>
                         <trigger>
                             <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
@@ -316,11 +278,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>Windows Serial Number</description>
-                    <applications>
-                        <application>
-                            <name>MgS DPKIdentifier</name>
-                        </application>
-                    </applications>
                     <triggers>
                         <trigger>
                             <expression>{diff(0)}&gt;0 and {nodata(600)}=0</expression>
@@ -614,35 +571,6 @@
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <description>Operating system version</description>
-                    <applications>
-                        <application>
-                            <name>MgS Inventory</name>
-                        </application>
-                    </applications>
-                    <request_method>POST</request_method>
-                </item>
-                <item>
-                    <name>MgS Inventory script updatecheck</name>
-                    <key>mgs.inventory[self,checkforupdates]</key>
-                    <delay>1d</delay>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <description>Check if update is available.</description>
-                    <applications>
-                        <application>
-                            <name>MgS Inventory</name>
-                        </application>
-                    </applications>
-                    <request_method>POST</request_method>
-                </item>
-                <item>
-                    <name>MgS Inventory script autoupdate</name>
-                    <key>mgs.inventory[self,update]</key>
-                    <delay>1d</delay>
-                    <trends>0</trends>
-                    <status>DISABLED</status>
-                    <value_type>TEXT</value_type>
-                    <description>Automaticaly update MgS Inventory package</description>
                     <applications>
                         <application>
                             <name>MgS Inventory</name>

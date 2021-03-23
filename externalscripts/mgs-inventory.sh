@@ -194,7 +194,6 @@ case ${module} in
 	    ;;
 	esac
 	;;
-    
     "var")
 	case ${item} in
 	    "hostname")
@@ -224,26 +223,6 @@ case ${module} in
 	    *)
 			echo "ZBX_NOTSUPPORTED"
 	    ;;
-	esac
-	;;
-	"identifier")
-	case ${item} in
-		"GetBiosId")
-			sudo dmidecode -t bios |grep Version: |sed -e 's/\tVersion: //g'
-		;;
-		"GetProcessorIds")
-			sudo lshw -C CPU -quiet |grep serial: |awk {'print $2'}
-		;;
-		"GetHddIds")
-			sudo lshw -C disk -quiet |grep serial: |awk {'print $2'}	
-		;;
-		"GetMacAddresses")
-			sudo lshw -C network -quiet |grep serial: |awk {'print $2'}
-		;;
-
-		*)
-			echo "ZBX_NOTSUPPORTED"
-		;;
 	esac
 	;;
 	"serial")

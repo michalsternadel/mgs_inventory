@@ -86,24 +86,6 @@ IF "%module%"=="var" (
     IF "%item%"=="gfx" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_VideoController).caption|Sort-Object"
     IF "%item%"=="display" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "$(foreach($b in $(Get-WMIObject WmiMonitorID -Namespace root\wmi)) { [System.Text.Encoding]::ASCII.GetString($b.UserFriendlyName)})|Sort-Object"
 )
-IF "%module%"=="identifier" ( 
-    IF "%item%"=="GetWindowsSerialNumber" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_OperatingSystem).SerialNumber"
-    IF "%item%"=="GetWindowsInstallDate" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_OperatingSystem).InstallDate.substring(0, 14)"
-    IF "%item%"=="GetWindowsDriveVolumeId" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_LogicalDisk -Filter """"deviceid='$((Get-WmiObject Win32_OperatingSystem).SystemDrive)'"""").VolumeSerialNumber"
-    IF "%item%"=="GetBiosId" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_BIOS).SerialNumber|Sort-Object"
-    IF "%item%"=="GetProcessorIds" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_Processor).ProcessorId|Sort-Object"
-    IF "%item%"=="GetHddIds" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_PhysicalMedia).SerialNumber|Sort-Object"
-    IF "%item%"=="GetMACAddresses" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_NetworkAdapter -Filter PhysicalAdapter="1").MACAddress|Sort-Object"
-    IF "%item%"=="GetComputerSystemProductUUID" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WMIObject Win32_ComputerSystemProduct).UUID"
-    IF "%item%"=="CreateSystemIdentifier" (
-        IF "%param%"=="Simple" (
-            PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Command -ScriptBlock { $a=(Get-WmiObject Win32_OperatingSystem).SerialNumber; $b=(Get-WmiObject Win32_OperatingSystem).InstallDate.substring(0, 14); $c=(Get-WmiObject Win32_LogicalDisk -Filter """"deviceid='$((Get-WmiObject Win32_OperatingSystem).SystemDrive)'"""").VolumeSerialNumber; $d=(Get-WmiObject Win32_BIOS).SerialNumber; $enc = [system.Text.Encoding]::UTF8; $a2=$enc.GetBytes($a); $b2=$enc.GetBytes($b); $c2=$enc.GetBytes($c); $d2=$enc.GetBytes($d); $idBuf = $a2, 0, $b2, 0, $c2, 0, $d2; $idBuf; }"
-        )
-        IF "%param%"=="Full" (
-            echo ""
-        )
-    )
-)
 IF "%module%"=="serial" ( 
     IF "%item%"=="display" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "$(foreach($b in $(Get-WMIObject WmiMonitorID -Namespace root\wmi)) { [System.Text.Encoding]::ASCII.GetString($b.SerialNumberId)})|Sort-Object"
     IF "%item%"=="bios" SET command=PowerShell.exe -NoProfile -ExecutionPolicy Bypass -Command "(Get-WmiObject Win32_Bios).SerialNumber|Sort-Object"
